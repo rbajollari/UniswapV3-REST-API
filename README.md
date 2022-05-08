@@ -11,13 +11,13 @@ Given a block number:
 
 # Endpoints
 ## /tokenpools
-### Accepts
+#### Request Body
 ```
 {
     "id": "Address of token"
 }
 ```
-### Returns 
+#### Response Body
 ```
 [
     {
@@ -40,11 +40,13 @@ Given a block number:
     }
 ]
 ```
-### Example request for token pools that include Dai
+#### Example request for token pools that include Dai
+```
 curl -X GET http://localhost:8080/tokenpools -H "Accept: application/json" -d '{"id":"0x6b175474e89094c44da98b954eedeac495271d0f"}'
+```
 
 ## /tokenvolume
-### Accepts
+#### Request Body
 ```
 {
     "id": "Address of token"
@@ -52,23 +54,25 @@ curl -X GET http://localhost:8080/tokenpools -H "Accept: application/json" -d '{
     "endingBlockTimestamp": Unix timestamp of enddate
 }
 ```
-### Returns 
+#### Response Body
 ```
 {
     "totalVolumeUSD": Swap volume of given asset in given range
 }
 ```
 ### Example request for total volume of Dai swapped in USD between Thursday, May 5, 2022 12:00:00 AM GMT and Saturday, May 7, 2022 12:00:00 AM GMT
+```
 curl -X GET http://localhost:8080/tokenvolume -H "Accept: application/json" -d '{"id":"0x6b175474e89094c44da98b954eedeac495271d0f", "startingBlockTimeStamp": 1651708800, "endingBlockTimestamp": 1651881600}'
+```
 
 ## /blockswaps
-### Accepts
+#### Request Body
 ```
 {
     "blockNumber": Block number to check swaps in
 }
 ```
-### Returns 
+#### Response Body
 ```
 {
     "swaps": [
@@ -92,4 +96,6 @@ curl -X GET http://localhost:8080/tokenvolume -H "Accept: application/json" -d '
 }
 ```
 ### Example request for all swap transactions and assests swapped at block 14732281
+```
 curl -X GET http://localhost:8080/blockswaps -H "Accept: application/json" -d '{"blockNumber": 14732281}'
+```
