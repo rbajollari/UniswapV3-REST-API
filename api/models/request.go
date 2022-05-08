@@ -1,4 +1,4 @@
-package handlers
+package models
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ type BlockInfoRequest struct {
 	BlockNumber int `json:"blockNumber"`
 }
 
-func (t *TokenPoolsRequest) createQueryString() string {
+func (t *TokenPoolsRequest) CreateQueryString() string {
 	return fmt.Sprintf(`
 	{
 		tokens (where: {
@@ -41,7 +41,7 @@ func (t *TokenPoolsRequest) createQueryString() string {
 	}`, t.ID)
 }
 
-func (t *TokenVolumeRequest) createQueryString() string {
+func (t *TokenVolumeRequest) CreateQueryString() string {
 	gteDate := strconv.Itoa(t.StartingBlockTimestamp/86400)
 	lteDate := strconv.Itoa(t.EndingBlockTimestamp/86400)
 	id_gte := t.ID + "-" + gteDate
@@ -58,7 +58,7 @@ func (t *TokenVolumeRequest) createQueryString() string {
 	  }`, id_gte, id_lte)
 }
 
-func (b *BlockInfoRequest) createQueryString() string {
+func (b *BlockInfoRequest) CreateQueryString() string {
 	return fmt.Sprintf(`
 	{
 		swaps (block: {number: %d}) {

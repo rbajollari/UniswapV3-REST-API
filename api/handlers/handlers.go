@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/rbajollari/UniswapV3-REST-API/api/models"
+
 	"github.com/machinebox/graphql"
 )
 
@@ -23,15 +25,16 @@ func TokenPools(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json")
 
-	requestJSON := TokenPoolsRequest{}
+	// create Uniswap Graph query from api request
+	requestJSON := models.TokenPoolsRequest{}
 	if err := json.NewDecoder(r.Body).Decode(&requestJSON); err != nil {
 		log.Printf("Failed to decode request body, error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	query := graphql.NewRequest(requestJSON.createQueryString())
+	query := graphql.NewRequest(requestJSON.CreateQueryString())
 
-	response := TokensResponse{}
+	response := models.TokensResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)
@@ -48,15 +51,16 @@ func TokenVolume(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json")
 
-	requestJSON := TokenVolumeRequest{}
+	// create Uniswap Graph query from api request
+	requestJSON := models.TokenVolumeRequest{}
 	if err := json.NewDecoder(r.Body).Decode(&requestJSON); err != nil {
 		log.Printf("Failed to decode request body, error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	query := graphql.NewRequest(requestJSON.createQueryString())
-	response := TokenDayDatasResponse{}
+	query := graphql.NewRequest(requestJSON.CreateQueryString())
+	response := models.TokenDayDatasResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)
@@ -72,7 +76,7 @@ func TokenVolume(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(totalVolume)
 
-	tokenVolumeResponse := TokenVolumeResponse {
+	tokenVolumeResponse := models.TokenVolumeResponse {
 		TotalVolumeUSD: totalVolume,
 	}
 
@@ -87,15 +91,16 @@ func BlockSwaps(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json")
 
-	requestJSON := BlockInfoRequest{}
+	// create Uniswap Graph query from api request
+	requestJSON := models.BlockInfoRequest{}
 	if err := json.NewDecoder(r.Body).Decode(&requestJSON); err != nil {
 		log.Printf("Failed to decode request body, error: %v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	
-	query := graphql.NewRequest(requestJSON.createQueryString())
-	response := SwapsResponse{}
+	query := graphql.NewRequest(requestJSON.CreateQueryString())
+	response := models.SwapsResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)

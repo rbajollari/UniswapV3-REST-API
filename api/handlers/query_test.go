@@ -5,6 +5,8 @@ import (
 	"context"
 	"strconv"
 
+	"github.com/rbajollari/UniswapV3-REST-API/api/models"
+
 	"github.com/machinebox/graphql"
 )
 
@@ -32,11 +34,11 @@ func TestUniswapV3GraphQuery (t *testing.T) {
 }
 
 func TestTokenPoolQuery (t *testing.T) {
-	request := TokenPoolsRequest{
+	request := models.TokenPoolsRequest{
 		ID: "0x6b175474e89094c44da98b954eedeac495271d0f",
 	}
-	query := graphql.NewRequest(request.createQueryString())
-	response := TokensResponse{}
+	query := graphql.NewRequest(request.CreateQueryString())
+	response := models.TokensResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)
@@ -45,13 +47,13 @@ func TestTokenPoolQuery (t *testing.T) {
 }
 
 func TestTokenVolumeQuery (t *testing.T) {
-	request := TokenVolumeRequest{
+	request := models.TokenVolumeRequest{
 		ID: "0x6b175474e89094c44da98b954eedeac495271d0f",
 		StartingBlockTimestamp: 1651708800,
 		EndingBlockTimestamp: 1651881600,
 	}
-	query := graphql.NewRequest(request.createQueryString())
-	response := TokenDayDatasResponse{}
+	query := graphql.NewRequest(request.CreateQueryString())
+	response := models.TokenDayDatasResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)
@@ -67,11 +69,11 @@ func TestTokenVolumeQuery (t *testing.T) {
 }
 
 func TestBlockQuery (t *testing.T) {
-	request := BlockInfoRequest{
+	request := models.BlockInfoRequest{
 		BlockNumber: 14732281,
 	}
-	query := graphql.NewRequest(request.createQueryString())
-	response := SwapsResponse{}
+	query := graphql.NewRequest(request.CreateQueryString())
+	response := models.SwapsResponse{}
 	graphqlClient := graphql.NewClient("https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-alt")
 	if err := graphqlClient.Run(context.Background(), query, &response.Data); err != nil {
 		panic(err)
