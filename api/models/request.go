@@ -26,6 +26,7 @@ func (t *TokenPoolsRequest) CreateQueryString() string {
 			id: "%s"
 		}) {
 		whitelistPools {
+			id
 			token0 {
 				id
 				name
