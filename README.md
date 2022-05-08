@@ -2,12 +2,12 @@
 A server side REST application that uses The Graph’s GraphQL API to provide Uniswap v3 information upon user request
 
 ## Details
-Given an asset ID:
-- What pools exist that include it?
-- What is the total volume of that asset swapped in a given time range?
-Given a block number:
-- What swaps occurred during that specific block?
-- List all assets swapped during that specific block
+1. Given an asset ID:
+* What pools exist that include it?
+* What is the total volume of that asset swapped in a given time range?
+2. Given a block number:
+* What swaps occurred during that specific block?
+* List all assets swapped during that specific block
 
 # Endpoints
 ## /tokenpools
